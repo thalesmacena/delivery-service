@@ -1,0 +1,51 @@
+version: '3'
+services:
+  redisdelivery:
+    container_name: redisdelivery
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - production
+    volumes:
+      - C:\dockervolume\delivery\redis:/data
+  postgresdelivery:
+    container_name: postgresdelivery
+    build:
+      context: .
+      dockerfile: ./database.dockerfile
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=product
+    ports:
+      - "5432:5432"
+    volumes:
+      - C:\dockervolume\delivery\postgres:/var/lib/postgresql/data
+    networks:
+      - production
+    restart: always
+  delivery-service:
+    container_name: delivery-service
+    build:
+      context: .
+      dockerfile: ./service.dockerfile
+    image: delivery-service
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgresdelivery
+      - REDIS_URL=redisdelivery
+      - WAIT_HOSTS=postgresdelivery:5432
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=5
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+    networks:
+      - production
+    depends_on:
+      - postgresdelivery
+      - redisdelivery
+    restart: always
+networks:
+  production:
+    driver: bridge

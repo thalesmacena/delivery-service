@@ -1,0 +1,84 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /delivery-service
+
+springdoc:
+  swagger-ui:    
+    operations-sorter: method
+    path: /swagger-ui.html
+  api-docs:
+    path: /api
+
+spring:
+  cache:
+    type: redis
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:product}?currentSchema=${DB_SCHEMA:product}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connection-test-query: select 1
+      connection-timeout: 25200
+      minimum-idle: 1
+      maximum-pool-size: 10
+
+redis:
+  host: ${REDIS_URL:localhost}
+  port: ${REDIS_PORT:6379}
+  timeout: 10000
+  database: 1  
+  pool:
+    max-active: 200
+    max-idle: 200
+    min-idle: 1
+  password: ${REDIS_PASSWORD:}
+
+application:
+  authentication-service:
+    url: ${AUTHENTICATION_SERVICE_URL:https://6237b2afb08c39a3af823f94.mockapi.io/authentication-service}
+    pool:
+      maxConn: 20
+      maxRoutes: 200
+      connTimeout: 60000
+      readTimeout: 60000
+  redis:
+    ttl:
+      lock: 300
+
+amazon:
+  region: ${AWS_REGION:us-east-1}
+  
+  sqs:
+    proxy-host: ${SQS_HOST:http://localhost:4576}
+    proxy-port: ${SQS_PORT:4576}
+    queues:
+      delivery-service-product-queue:
+        url: ${DELIVERY_SERVICE_PRODUCT_QUEUE_URL:aws2-sqs://delivery-service-product-queue}
+        config: ${DELIVERY_SERVICE_PRODUCT_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}
+  
+  kinesis:
+    max-records: ${CONTRACT_STREAM_MAX_RECORDS:1000}
+    streams:
+      delivery-service-product-event-stream:
+        url: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_URL:aws2-kinesis://delivery-service-product-event-stream}
+        config: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_CONFIG:?amazonKinesisClient=#kinesisClient}
+        name: ${DELIVERY_SERVICE_PRODUCT_EVENT_NAME:delivery-service-product-event-stream}
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+  endpoints:
+    web:
+      base-path: /
+      exposure:
+        include: health, info
