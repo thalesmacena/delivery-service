@@ -56,11 +56,11 @@ This is a small example of how to create a service Rest API using Springboot. Th
 ## 🔥 Running the application
 
 **Prerequisites**
-- java jdk 17
-
-- Maven
+- GIT
 
 - Docker
+
+- AWS CLI
 
 **Run**
 ```PowerShell
@@ -69,6 +69,17 @@ git clone https://github.com/thalesmacena/delivery-service.git
 
 # To move to project directory
 cd delivery-service
+
+# to start docker container
+docker compose up
+
+# Set AWS Credentials
+aws configure
+
+AWS Access Key ID [None]: DELIVERY
+AWS Secret Access Key [None]: DELIVERY
+Default region name [us-east-1]: us-east-1
+Default output format [json]: json
 ```
 
 ## 🕵 API DOC
