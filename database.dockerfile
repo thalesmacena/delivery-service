@@ -1,6 +1,6 @@
 FROM postgres as dumper
 
-COPY dump.sql /docker-entrypoint-initdb.d/
+COPY opt/dump.sql /docker-entrypoint-initdb.d/
 
 RUN ["sed", "-i", "s/exec \"$@\"/echo \"skipping...\"/", "/usr/local/bin/docker-entrypoint.sh"]
 
