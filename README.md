@@ -18,6 +18,7 @@
 - [💻 Technologies](#-technologies)
 - [🔥 Running the application](#-running-the-application)
 - [🕵 API DOC](#-api-doc)
+- [🏃 RoadMap](#-roadmap)
   
   
 ## 📑 About
@@ -84,3 +85,22 @@ Default output format [json]: json
 
 ## 🕵 API DOC
 to access the api documentation just access the following [url](http://localhost:8080/delivery-service/swagger-ui.html) after run the application.
+
+## 🏃 RoadMap
+- [x] Architectural drawing
+- [x] Config Springboot docker
+- [x] Config Redis docker
+- [x] Config Postgres docker
+- [x] Config Localstack aws docker
+- [x] Spring initialization with dependencies and env
+- [ ] Auth filter and Spring security configuration   
+- [ ] Data modelling
+- [ ] CRUDs
+- [ ] Image upload with s3
+- [ ] Redis lock and cache
+- [ ] Async Ordering
+- [ ] Queue processing
+- [ ] Events mapping
+- [ ] Events stream
+- [ ] Stream Consumer
+- [ ] Dynamo/mongoDB Integration for events mapping
