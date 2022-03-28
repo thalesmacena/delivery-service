@@ -15,6 +15,8 @@
 ## 🗂 Table of Contents
 - [🗂 Table of Contents](#-table-of-contents)
 - [📑 About](#-about)
+  - [🏗 Architeture](#-architeture)
+  - [🏛 Diagram](#-diagram)
 - [💻 Technologies](#-technologies)
 - [🔥 Running the application](#-running-the-application)
 - [🕵 API DOC](#-api-doc)
@@ -24,7 +26,11 @@
 ## 📑 About
 This is a small example of how to create a service Rest API using Springboot. This example will include: API Rest, database, cache, communication with microservices, messaging, stream, security filters, logging, monitoring, containerization and documentation
 
-![Diagrama](.github/diagram.svg)
+### 🏗 Architeture
+![Architeture](.github/diagram.svg)
+
+### 🏛 Diagram
+![Diagram](.github/schema.svg)
 
 ## 💻 Technologies
 
@@ -93,8 +99,8 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Config Postgres docker
 - [x] Config Localstack aws docker
 - [x] Spring initialization with dependencies and env
+- [x] Data modelling
 - [ ] Auth filter and Spring security configuration   
-- [ ] Data modelling
 - [ ] CRUDs
 - [ ] Image upload with s3
 - [ ] Redis lock and cache
