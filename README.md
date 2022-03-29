@@ -100,7 +100,8 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Config Localstack aws docker
 - [x] Spring initialization with dependencies and env
 - [x] Data modelling
-- [ ] Auth filter and Spring security configuration   
+- [x] Auth filter and Spring security configuration
+- [x] Login Route   
 - [ ] CRUDs
 - [ ] Image upload with s3
 - [ ] Redis lock and cache
