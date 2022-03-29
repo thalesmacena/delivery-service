@@ -3,6 +3,8 @@ package br.com.example.deliveryservice.infra.api;
 import static br.com.example.deliveryservice.infra.util.HttpUtils.getHttpStatus;
 
 import br.com.example.deliveryservice.infra.api.pool.AuthenticationServicePoolConfig;
+import br.com.example.deliveryservice.infra.exception.AuthenticationServiceException;
+import br.com.example.deliveryservice.infra.exception.UnauthenticatedException;
 import feign.Response;
 import org.hibernate.secure.spi.IntegrationException;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ public interface AuthenticationServiceAPI {
     @PostMapping("/login")
     LoginResponse login(@RequestBody LoginPayload payload);
 
-    @PostMapping("")
+    @PostMapping("/auth")
     AuthResponse auth(@RequestBody AuthPayload payload);
 
     class AuthenticationServiceDecoder implements ErrorDecoder {
@@ -34,8 +36,11 @@ public interface AuthenticationServiceAPI {
         public IntegrationException decode(String methodKey, Response response) {
             final HttpStatus statusCode = getHttpStatus(response);
 
+            if (statusCode == HttpStatus.UNAUTHORIZED) {
+                throw new UnauthenticatedException();
+            }
 
-            throw new IntegrationException(statusCode.getReasonPhrase());
+            throw new AuthenticationServiceException(statusCode.getReasonPhrase());
         }
     }
 }
