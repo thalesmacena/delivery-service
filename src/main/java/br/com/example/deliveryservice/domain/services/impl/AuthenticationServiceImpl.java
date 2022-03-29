@@ -17,7 +17,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationServiceAPI authenticationServiceAPI;
 
     @Override
-    @Cacheable(value = "authenticate", key = "#payload.getToken()")
+    @Cacheable(value = "authenticate", key = "#payload")
     public AuthResponse authenticate(AuthPayload payload) {
         return authenticationServiceAPI.auth(payload);
     }

@@ -101,13 +101,16 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Spring initialization with dependencies and env
 - [x] Data modelling
 - [x] Auth filter and Spring security configuration
-- [x] Login Route   
+- [x] Login Route
 - [ ] CRUDs
 - [ ] Image upload with s3
 - [ ] Redis lock and cache
+- [ ] Exception Handling
 - [ ] Async Ordering
+- [ ] Logs
 - [ ] Queue processing
 - [ ] Events mapping
 - [ ] Events stream
+- [x] Message Mapping
 - [ ] Stream Consumer
 - [ ] Dynamo/mongoDB Integration for events mapping
