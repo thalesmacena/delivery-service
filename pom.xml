@@ -122,6 +122,25 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 
+		<!-- Docs -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-webmvc-core</artifactId>
+			<version>1.6.5</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-security</artifactId>
+			<version>1.6.7</version>
+		</dependency>
+
 		<!-- Tools -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>

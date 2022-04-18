@@ -103,6 +103,7 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Auth filter and Spring security configuration
 - [x] Login Route
 - [ ] CRUDs
+- [x] OAS (OpenAPI Specification)
 - [ ] Image upload with s3
 - [ ] Redis lock and cache
 - [ ] Exception Handling
