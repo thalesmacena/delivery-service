@@ -49,6 +49,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-json</artifactId>
+		</dependency>
+
+		<!-- JPA Extensions-->
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.1.1</version>
+		</dependency>
 
 		<!-- Drivers -->
 		<dependency>

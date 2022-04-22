@@ -17,12 +17,17 @@ spring:
   jpa:
     properties:
       hibernate:
+        default_schema: ${DB_SCHEMA:product}
         dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
+    show-sql: true
     hibernate:
       ddl-auto: update
+      hbm2dll:
+        create_namespaces: true
+
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:product}?currentSchema=${DB_SCHEMA:product}
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:product}
     username: ${DB_USER:postgres}
     password: ${DB_PASSWORD:postgres}
     type: com.zaxxer.hikari.HikariDataSource
