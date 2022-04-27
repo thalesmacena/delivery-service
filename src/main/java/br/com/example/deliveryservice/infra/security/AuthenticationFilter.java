@@ -5,11 +5,9 @@ import br.com.example.deliveryservice.domain.external.authenticationservice.Auth
 import br.com.example.deliveryservice.domain.external.authenticationservice.ResourcePermission;
 import br.com.example.deliveryservice.domain.services.AuthenticationService;
 import br.com.example.deliveryservice.domain.services.MessageContextService;
-import br.com.example.deliveryservice.infra.exception.UnauthorizedException;
-import org.apache.camel.Message;
+import br.com.example.deliveryservice.infra.exception.external.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -44,7 +42,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
 
             AuthResponse authResponse = authenticationService.authenticate(new AuthPayload(token));
 
-            if (!isAuthorized(path, authResponse.getResources())) {
+            if (!isAuthorized(path, request.getMethod(), authResponse.getResources())) {
                 throw new UnauthorizedException(messageContextService.getMessage("delivery.service.unauthorized.error"), path);
             }
 
@@ -69,7 +67,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         return path.equals("/login");
     }
 
-    private Boolean isAuthorized(String path, List<ResourcePermission> resourcesPermissions) {
-        return resourcesPermissions.stream().anyMatch(resourcePermission -> resourcePermission.getPath().equals(path));
+    private Boolean isAuthorized(String path, String method, List<ResourcePermission> resourcesPermissions) {
+        return resourcesPermissions.stream().anyMatch(resourcePermission -> path.startsWith(resourcePermission.getPath()) && resourcePermission.getMethod().equals(method));
     }
 }

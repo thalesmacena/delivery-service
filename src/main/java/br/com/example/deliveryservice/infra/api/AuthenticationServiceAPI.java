@@ -3,8 +3,8 @@ package br.com.example.deliveryservice.infra.api;
 import static br.com.example.deliveryservice.infra.util.HttpUtils.getHttpStatus;
 
 import br.com.example.deliveryservice.infra.api.pool.AuthenticationServicePoolConfig;
-import br.com.example.deliveryservice.infra.exception.AuthenticationServiceException;
-import br.com.example.deliveryservice.infra.exception.UnauthenticatedException;
+import br.com.example.deliveryservice.infra.exception.external.AuthenticationServiceException;
+import br.com.example.deliveryservice.infra.exception.external.UnauthenticatedException;
 import feign.Response;
 import org.hibernate.secure.spi.IntegrationException;
 import org.springframework.http.HttpStatus;
