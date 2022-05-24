@@ -1,4 +1,4 @@
-package br.com.example.deliveryservice.infra.exception;
+package br.com.example.deliveryservice.infra.exception.external;
 
 import org.springframework.http.HttpStatus;
 

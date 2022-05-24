@@ -28,7 +28,7 @@ services:
     networks:
       - production
     volumes:
-      - C:\dockervolume\delivery\redis:/data
+      - ./volume/redis:/data
   postgresdelivery:
     container_name: postgresdelivery
     build:
@@ -41,7 +41,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - C:\dockervolume\delivery\postgres:/var/lib/postgresql/data
+      - ./volume/database:/var/lib/postgresql/data
     networks:
       - production
     restart: always

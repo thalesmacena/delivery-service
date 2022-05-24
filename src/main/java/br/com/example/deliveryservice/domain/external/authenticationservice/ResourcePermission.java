@@ -13,4 +13,5 @@ public class ResourcePermission implements Serializable {
 
     private String description;
     private String path;
+    private String method;
 }
