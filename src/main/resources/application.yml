@@ -17,6 +17,9 @@ spring:
   jpa:
     properties:
       hibernate:
+        types:
+          print:
+            banner: false # disable the banner
         default_schema: ${DB_SCHEMA:product}
         dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true

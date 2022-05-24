@@ -30,9 +30,6 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Autowired
     private AuthenticationService authenticationService;
 
-    @Autowired
-    private MessageContextService messageContextService;
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String path = getPath(request);
@@ -43,7 +40,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             AuthResponse authResponse = authenticationService.authenticate(new AuthPayload(token));
 
             if (!isAuthorized(path, request.getMethod(), authResponse.getResources())) {
-                throw new UnauthorizedException(messageContextService.getMessage("delivery.service.unauthorized.error"), path);
+                throw new UnauthorizedException(path);
             }
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(authResponse.getUser(), null, null);
@@ -63,11 +60,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         return request.getRequestURI().substring(contextPath.length());
     }
 
-    private Boolean isLoginRequest(String path) {
+    private boolean isLoginRequest(String path) {
         return path.equals("/login");
     }
 
-    private Boolean isAuthorized(String path, String method, List<ResourcePermission> resourcesPermissions) {
+    private boolean isAuthorized(String path, String method, List<ResourcePermission> resourcesPermissions) {
         return resourcesPermissions.stream().anyMatch(resourcePermission -> path.startsWith(resourcePermission.getPath()) && resourcePermission.getMethod().equals(method));
     }
 }

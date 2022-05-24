@@ -4,6 +4,8 @@ import static org.springframework.http.ResponseEntity.status;
 import static java.util.Objects.nonNull;
 
 import br.com.example.deliveryservice.domain.internal.Product;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPatchPayload;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
 import br.com.example.deliveryservice.domain.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 
 
 @RequiredArgsConstructor
@@ -47,8 +50,28 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> save(@RequestBody Product product) {
-        return status(HttpStatus.CREATED).body(productService.save(product));
+    public ResponseEntity<Product> save(@RequestBody @Valid ProductPayload payload) {
+        return status(HttpStatus.CREATED).body(productService.save(payload));
+    }
+
+    @PutMapping("id/{id}")
+    public ResponseEntity<Product> updateById(@PathVariable String id, @RequestBody @Valid ProductPayload payload) {
+        return ResponseEntity.ok(this.productService.updateById(id, payload));
+    }
+
+    @PutMapping("key/{productKey}")
+    public ResponseEntity<Product> updateByProductKey(@PathVariable String productKey, @RequestBody @Valid ProductPayload payload) {
+        return ResponseEntity.ok(this.productService.updateByProductKey(productKey, payload));
+    }
+
+    @PatchMapping("id/{id}")
+    public ResponseEntity<Product> patchById(@PathVariable String id, @RequestBody @Valid ProductPatchPayload payload) {
+        return ResponseEntity.ok(this.productService.patchById(id, payload));
+    }
+
+    @PatchMapping("key/{productKey}")
+    public ResponseEntity<Product> patchByProductKey(@PathVariable String productKey, @RequestBody @Valid ProductPatchPayload payload) {
+        return ResponseEntity.ok(this.productService.patchByProductKey(productKey, payload));
     }
 
     @DeleteMapping("id/{id}")

@@ -1,6 +1,8 @@
 package br.com.example.deliveryservice.domain.services;
 
 import br.com.example.deliveryservice.domain.internal.Product;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPatchPayload;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,7 +18,15 @@ public interface ProductService {
 
     Product findByProductKey(String productKey);
 
-    Product save(Product product);
+    Product save(ProductPayload payload);
+
+    Product updateById(String productId, ProductPayload payload);
+
+    Product updateByProductKey(String productKey, ProductPayload payload);
+
+    Product patchById(String productId, ProductPatchPayload patchFields);
+
+    Product patchByProductKey(String productKey, ProductPatchPayload patchFields);
 
     void delete(String productId);
 

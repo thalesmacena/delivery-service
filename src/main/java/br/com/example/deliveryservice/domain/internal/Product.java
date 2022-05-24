@@ -3,6 +3,7 @@ package br.com.example.deliveryservice.domain.internal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
@@ -19,12 +20,11 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@TypeDefs({
-        @TypeDef(name = "json", typeClass = JsonStringType.class),
-        @TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
-})
+@TypeDef(name = "json", typeClass = JsonStringType.class)
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 public class Product {
 
     @Id
@@ -42,10 +42,11 @@ public class Product {
 
     private BigDecimal productValue;
 
-    @JsonIgnore()
+    @Column(updatable = false)
+    @JsonIgnore
     private LocalDateTime createdDate;
 
-    @JsonIgnore()
+    @JsonIgnore
     private LocalDateTime updatedDate;
 
     @Type(type = "jsonb")
