@@ -25,14 +25,14 @@ echo "Queue delivery-service-order-queue created"
 awslocal sqs list-queues 
 echo " "
 echo "########### Creating S3 ###########"
-echo "Creating delivey-image-bucket"
-awslocal s3api create-bucket --bucket delivey-image-bucket
-awslocal s3api put-bucket-acl --bucket delivey-image-bucket --acl public-read-write
-echo "Bucket delivey-image-bucket created"
+echo "Creating delivery-image-bucket"
+awslocal s3api create-bucket --bucket delivery-image-bucket
+awslocal s3api put-bucket-acl --bucket delivery-image-bucket --acl public-read-write
+echo "Bucket delivery-image-bucket created"
 awslocal s3api list-buckets
 echo " "
 echo "########### Creating Kinesis ###########"
 echo "Creating delivery-service-order-event-stream"
 awslocal kinesis create-stream --stream-name delivery-service-order-event-stream --shard-count 4
-echo "Stream delivey-service-order-event-stream created"
+echo "Stream delivery-service-order-event-stream created"
 awslocal kinesis list-streams

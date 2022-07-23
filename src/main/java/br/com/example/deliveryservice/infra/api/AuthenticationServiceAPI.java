@@ -19,7 +19,7 @@ import br.com.example.deliveryservice.domain.external.authenticationservice.Logi
 import br.com.example.deliveryservice.domain.external.authenticationservice.LoginResponse;
 
 
-@FeignClient(value = "authentication-api", url="${application.authentication-service.url}", configuration = {
+@FeignClient(value = "authentication-api", url = "${application.authentication-service.url}", configuration = {
         AuthenticationServiceAPI.AuthenticationServiceDecoder.class, AuthenticationServicePoolConfig.class
 })
 public interface AuthenticationServiceAPI {

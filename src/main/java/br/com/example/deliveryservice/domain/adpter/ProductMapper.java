@@ -11,7 +11,7 @@ public interface ProductMapper {
     @Mapping(ignore = true, target = "createdDate")
     @Mapping(ignore = true, target = "updatedDate")
     @Mapping(ignore = true, target = "id")
-    Product toEntity(ProductPayload product );
+    Product toEntity(ProductPayload product);
 
     ProductPayload toDTO(Product product);
 
