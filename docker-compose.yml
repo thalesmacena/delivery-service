@@ -12,7 +12,7 @@ services:
       - AWS_DEFAULT_REGION=us-east-1
       - AWS_DEFAULT_OUTPUT=json
     ports:
-      - "8081:4566" # s3, sqs and kinesis
+      - "443:4566" # s3, sqs and kinesis
       - "4571:4571"
       
     volumes:

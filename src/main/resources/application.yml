@@ -71,11 +71,11 @@ amazon:
   accessKey: ${AWS_ACCESS:DELIVERY}
   secretKey: ${AWS_SECRET:DELIVERY}
   use-local-uri: ${AWS_USE_LOCAL_URI:true}
-  local-endpoint: ${AWS_LOCAL_ENDPOINT:http://awsdelivery:8081}
+  local-endpoint: ${AWS_LOCAL_ENDPOINT:http://awsdelivery:443}
   
   sqs:
     proxy-host: ${SQS_HOST:localhost}
-    proxy-port: ${SQS_PORT:8081}
+    proxy-port: ${SQS_PORT:443}
     proxy-protocol: ${SQS_PROTOCOL:HTTP}
     queues:
       delivery-service-product-queue:
@@ -84,7 +84,7 @@ amazon:
   
   s3:
     proxy-host: ${S3_HOST:localhost}
-    proxy-port: ${S3_PORT:8081}
+    proxy-port: ${S3_PORT:443}
     proxy-protocol: ${S3_PROTOCOL:HTTP}
     buckets:
       delivery-image-bucket:
@@ -92,7 +92,7 @@ amazon:
         config: ${DELIVERY_IMAGE_BUCKET_CONFIG:?amazonS3Client=#s3Client}
   kinesis:
     proxy-host: ${KINESIS_HOST:localhost}
-    proxy-port: ${KINESIS_PORT:8081}
+    proxy-port: ${KINESIS_PORT:443}
     proxy-protocol: ${KINESIS_PROTOCOL:HTTP}
     streams:
       delivery-service-product-event-stream:
