@@ -1,10 +1,9 @@
-package br.com.example.deliveryservice.infra.security;
+package br.com.example.deliveryservice.infra.security.filter;
 
 import br.com.example.deliveryservice.domain.external.authenticationservice.AuthPayload;
 import br.com.example.deliveryservice.domain.external.authenticationservice.AuthResponse;
 import br.com.example.deliveryservice.domain.external.authenticationservice.ResourcePermission;
 import br.com.example.deliveryservice.domain.services.AuthenticationService;
-import br.com.example.deliveryservice.domain.services.MessageContextService;
 import br.com.example.deliveryservice.infra.exception.external.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
