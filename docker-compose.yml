@@ -7,6 +7,7 @@ services:
     environment:
       - SERVICES=s3,sqs,kinesis
       - DOCKER_HOST=unix:///var/run/docker.sock
+      - DATA_DIR=${LOCALSTACK_DATA_DIR:-/tmp/localstack/data}
       - AWS_ACCESS_KEY_ID=DELIVERY
       - AWS_SECRET_ACCESS_KEY=DELIVERY
       - AWS_DEFAULT_REGION=us-east-1
@@ -19,7 +20,6 @@ services:
       -  ./opt:/docker-entrypoint-initaws.d
       -  ./opt:/root/localstack/config
       -  ./volume/localstack/data:/tmp/localstack/data
-      -  ./volume/localstack/s3:/root/localstack/s3
   redisdelivery:
     container_name: redisdelivery
     image: redis
