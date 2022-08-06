@@ -21,8 +21,6 @@ public class MessageContextServiceImpl implements MessageContextService {
 
     @Override
     public String getMessage(String key, Object... args) {
-        String message = messageSource.getMessage(key, args, Locale.getDefault());
-
-        return String.format(message, args);
+        return messageSource.getMessage(key, args, Locale.getDefault());
     }
 }
