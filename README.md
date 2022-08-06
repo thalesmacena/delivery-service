@@ -104,14 +104,13 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Login Route
 - [ ] CRUDs
 - [x] OAS (OpenAPI Specification)
-- [ ] Image upload with s3
+- [x] Image upload with s3
 - [ ] Redis lock and cache
-- [ ] Exception Handling
+- [x] Exception Handling
 - [ ] Async Ordering
 - [ ] Logs
-- [ ] Queue processing
+- [x] Queue processing
 - [ ] Events mapping
 - [ ] Events stream
 - [x] Message Mapping
-- [ ] Stream Consumer
 - [ ] Dynamo/mongoDB Integration for events mapping
