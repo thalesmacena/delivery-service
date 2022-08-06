@@ -22,6 +22,9 @@ echo "########### Creating SQS ###########"
 echo "Creating delivery-service-order-queue"
 awslocal sqs create-queue --queue-name=delivery-service-order-queue
 echo "Queue delivery-service-order-queue created"
+echo "Creating delivery-service-delete-image-queue"
+awslocal sqs create-queue --queue-name=delivery-service-delete-image-queue
+echo "Queue delivery-service-delete-image-queue created"
 awslocal sqs list-queues 
 echo " "
 echo "########### Creating S3 ###########"

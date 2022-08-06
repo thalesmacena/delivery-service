@@ -81,15 +81,19 @@ amazon:
       delivery-service-product-queue:
         url: ${DELIVERY_SERVICE_PRODUCT_QUEUE_URL:aws2-sqs://delivery-service-order-queue}
         config: ${DELIVERY_SERVICE_PRODUCT_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}
+      delivery-service-delete-image-queue:
+        url: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_URL:aws2-sqs://delivery-service-delete-image-queue}
+        config: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}
   
   s3:
     proxy-host: ${S3_HOST:localhost}
     proxy-port: ${S3_PORT:443}
     proxy-protocol: ${S3_PROTOCOL:HTTP}
+    object-url-formatter: ${S3_BUCKET_URL_FORMATTER:http://%s.s3.%s.localhost:443/%s}
     buckets:
       delivery-image-bucket:
         url: ${DELIVERY_IMAGE_BUCKET_URL:aws2-s3://delivery-image-bucket}
-        config: ${DELIVERY_IMAGE_BUCKET_CONFIG:?amazonS3Client=#s3Client}
+        config: ${DELIVERY_IMAGE_BUCKET_CONFIG:?amazonS3Client=#s3Client&deleteAfterRead=false}
   kinesis:
     proxy-host: ${KINESIS_HOST:localhost}
     proxy-port: ${KINESIS_PORT:443}
