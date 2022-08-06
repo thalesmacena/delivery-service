@@ -8,10 +8,14 @@ import br.com.example.deliveryservice.domain.services.MessageContextService;
 import br.com.example.deliveryservice.infra.exception.external.AuthenticationServiceException;
 import br.com.example.deliveryservice.infra.exception.external.UnauthenticatedException;
 import br.com.example.deliveryservice.infra.exception.external.UnauthorizedException;
+import br.com.example.deliveryservice.infra.exception.internal.ImageNotFoundException;
+import br.com.example.deliveryservice.infra.exception.internal.ImagesAlreadyUploadedException;
+import br.com.example.deliveryservice.infra.exception.internal.IncorrectFileContentTypeException;
 import br.com.example.deliveryservice.infra.exception.internal.ProductNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.secure.spi.IntegrationException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -19,6 +23,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentConversionNotSupportedException;
 
 @Slf4j
 @RestControllerAdvice
@@ -31,6 +36,25 @@ public class ErrorHandler {
     public ResponseEntity<ErrorMessage> handleProductNotFoundException(Exception e) {
         log.error(messageContextService.getMessage("product-not-found-exception"), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("product-not-found-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(IncorrectFileContentTypeException.class)
+    public ResponseEntity<ErrorMessage> handleIncorrectFileContentTypeException(Exception e) {
+        log.error(messageContextService.getMessage("image-incorrect-content-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("image-incorrect-content-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+
+    @ExceptionHandler(ImageNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleImageNotFoundException(Exception e) {
+        log.error(messageContextService.getMessage("image-not-found-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("image-not-found-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(ImagesAlreadyUploadedException.class)
+    public ResponseEntity<ErrorMessage> handleImagesAlreadyUploadedException(Exception e) {
+        log.error(messageContextService.getMessage("image-already-uploaded-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("image-already-uploaded-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
     }
 
     @ExceptionHandler(UnauthorizedException.class)
@@ -74,6 +98,12 @@ public class ErrorHandler {
     public ResponseEntity<ErrorMessage> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         log.error(messageContextService.getMessage("validation-exception.media-type"), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("validation-exception.media-type.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorMessage> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+        log.error(messageContextService.getMessage("database-exception.data-integrity"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("database-exception.data-integrity.message", e.getMessage()), ErrorType.BAD_REQUEST));
     }
 
     private ErrorMessage buildResponseMessage(String message, ErrorType code) {
