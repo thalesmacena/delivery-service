@@ -1,6 +1,7 @@
 package br.com.example.deliveryservice.domain.internal.dto;
 
 import br.com.example.deliveryservice.domain.internal.ProductType;
+import br.com.example.deliveryservice.infra.security.validator.key.ValidKey;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProductPatchPayload {
 
+    @ValidKey
     private String productKey;
     private String name;
     private String description;

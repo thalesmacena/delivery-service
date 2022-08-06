@@ -6,6 +6,7 @@ import br.com.example.deliveryservice.domain.adpter.ProductMapper;
 import br.com.example.deliveryservice.domain.internal.Product;
 import br.com.example.deliveryservice.domain.internal.dto.ProductPatchPayload;
 import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
+import br.com.example.deliveryservice.domain.services.ProductImageService;
 import br.com.example.deliveryservice.domain.services.ProductService;
 import br.com.example.deliveryservice.infra.exception.internal.ProductKeyAlreadyInUse;
 import br.com.example.deliveryservice.infra.exception.internal.ProductNotFoundException;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,6 +28,8 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final ProductMapper productAdapter;
+
+    private final ProductImageService productImageService;
 
     @Override
     public Page<Product> findAll(Pageable pageable) {
@@ -107,11 +111,19 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(String productId) {
-        productRepository.deleteById(productId);
+        Product productSaved = productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException(productId));
+
+        productImageService.deleteImagesByProductKeyAndImages(productSaved.getProductKey(), productSaved.getImages());
+
+        productRepository.delete(productSaved);
     }
 
     @Override
     public void deleteByProductKey(String productKey) {
-        productRepository.deleteByProductKey(productKey);
+        Product productSaved = productRepository.findByProductKey(productKey).orElseThrow(() -> new ProductNotFoundException(productKey));
+
+        productImageService.deleteImagesByProductKeyAndImages(productSaved.getProductKey(), productSaved.getImages());
+
+        productRepository.delete(productSaved);
     }
 }

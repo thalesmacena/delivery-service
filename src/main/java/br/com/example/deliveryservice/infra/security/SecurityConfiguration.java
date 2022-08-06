@@ -1,5 +1,6 @@
 package br.com.example.deliveryservice.infra.security;
 
+import br.com.example.deliveryservice.infra.security.filter.AuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
