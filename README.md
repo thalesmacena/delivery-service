@@ -113,4 +113,4 @@ to access the api documentation just access the following [url](http://localhost
 - [ ] Events mapping
 - [ ] Events stream
 - [x] Message Mapping
-- [] Email sender
+- [ ] Email sender
