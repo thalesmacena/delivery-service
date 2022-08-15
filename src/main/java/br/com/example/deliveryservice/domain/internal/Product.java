@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 
@@ -39,6 +40,7 @@ public class Product {
     private String id;
 
     @Column(unique = true)
+    @NaturalId
     private String productKey;
 
     private String name;
