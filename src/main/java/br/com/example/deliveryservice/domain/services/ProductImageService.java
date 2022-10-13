@@ -1,7 +1,6 @@
 package br.com.example.deliveryservice.domain.services;
 
 import br.com.example.deliveryservice.domain.internal.Image;
-import br.com.example.deliveryservice.domain.internal.dto.DeleteImagePayload;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
