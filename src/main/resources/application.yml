@@ -28,7 +28,7 @@ spring:
         default_schema: ${DB_SCHEMA:product}
         dialect: org.hibernate.dialect.PostgreSQLDialect
     generate-ddl: true
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: update
       
@@ -46,13 +46,14 @@ spring:
 redis:
   host: ${REDIS_URL:localhost}
   port: ${REDIS_PORT:6379}
+  password: ${REDIS_PASSWORD:}
   timeout: 10000
   database: 1  
   pool:
     max-active: 200
     max-idle: 200
     min-idle: 1
-  password: ${REDIS_PASSWORD:}
+
 
 application:
   authentication-service:
@@ -65,6 +66,7 @@ application:
   redis:
     ttl:
       lock: 300
+    lock-key: ${REDIS_LOCK_KEY:lock::}
 
 amazon:
   region: ${AWS_REGION:us-east-1}
@@ -78,9 +80,9 @@ amazon:
     proxy-port: ${SQS_PORT:443}
     proxy-protocol: ${SQS_PROTOCOL:HTTP}
     queues:
-      delivery-service-product-queue:
+      delivery-service-order-queue:
         url: ${DELIVERY_SERVICE_PRODUCT_QUEUE_URL:aws2-sqs://delivery-service-order-queue}
-        config: ${DELIVERY_SERVICE_PRODUCT_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}
+        config: ${DELIVERY_SERVICE_PRODUCT_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=30}
       delivery-service-delete-image-queue:
         url: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_URL:aws2-sqs://delivery-service-delete-image-queue}
         config: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}

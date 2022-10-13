@@ -1,10 +1,14 @@
 package br.com.example.deliveryservice.domain.services;
 
-import br.com.example.deliveryservice.domain.internal.Product;
-import br.com.example.deliveryservice.domain.internal.dto.ProductPatchPayload;
-import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import br.com.example.deliveryservice.domain.internal.Product;
+import br.com.example.deliveryservice.domain.internal.ProductType;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPatchPayload;
+import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
 
 public interface ProductService {
 
@@ -17,6 +21,10 @@ public interface ProductService {
     Product findById(String productId);
 
     Product findByProductKey(String productKey);
+
+    boolean checkIfAllListedProductsAreValid(List<String> productsKeyList, ProductType orderPriority);
+
+    List<Product> findByProductKeyIn(List<String> productsKeyList);
 
     Product save(ProductPayload payload);
 
