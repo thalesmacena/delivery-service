@@ -109,3 +109,4 @@ to access the api documentation just access the following [url](http://localhost
 - [ ] Events stream
 - [ ] Logs
 - [ ] Dynamo/mongoDB Integration for events mapping
+- [ ] Email sender
