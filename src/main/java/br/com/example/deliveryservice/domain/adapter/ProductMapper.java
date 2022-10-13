@@ -1,4 +1,4 @@
-package br.com.example.deliveryservice.domain.adpter;
+package br.com.example.deliveryservice.domain.adapter;
 
 import br.com.example.deliveryservice.domain.internal.Product;
 import br.com.example.deliveryservice.domain.internal.dto.ProductPayload;
