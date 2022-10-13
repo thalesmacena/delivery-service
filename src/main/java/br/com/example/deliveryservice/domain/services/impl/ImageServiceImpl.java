@@ -1,15 +1,13 @@
 package br.com.example.deliveryservice.domain.services.impl;
 
-import br.com.example.deliveryservice.domain.adpter.ImageMapper;
+import br.com.example.deliveryservice.domain.adapter.ImageMapper;
 import br.com.example.deliveryservice.domain.internal.Image;
 import br.com.example.deliveryservice.domain.internal.ImageUploadStatus;
 import br.com.example.deliveryservice.domain.internal.Product;
 import br.com.example.deliveryservice.domain.internal.dto.DeleteImageEvent;
-import br.com.example.deliveryservice.domain.internal.dto.DeleteImagePayload;
 import br.com.example.deliveryservice.domain.internal.dto.FileUploadResult;
 import br.com.example.deliveryservice.domain.services.ImageBucketService;
 import br.com.example.deliveryservice.domain.services.ProductImageService;
-import br.com.example.deliveryservice.domain.services.ProductService;
 import br.com.example.deliveryservice.infra.exception.internal.ImageNotFoundException;
 import br.com.example.deliveryservice.infra.exception.internal.ImagesAlreadyUploadedException;
 import br.com.example.deliveryservice.infra.exception.internal.IncorrectFileContentTypeException;
@@ -21,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashSet;

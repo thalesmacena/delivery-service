@@ -1,7 +1,6 @@
 package br.com.example.deliveryservice.domain.internal.dto;
 
 import br.com.example.deliveryservice.domain.internal.Image;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;

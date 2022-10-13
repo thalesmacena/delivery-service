@@ -1,6 +1,6 @@
-package br.com.example.deliveryservice.domain.adpter.impl;
+package br.com.example.deliveryservice.domain.adapter.impl;
 
-import br.com.example.deliveryservice.domain.adpter.ImageMapper;
+import br.com.example.deliveryservice.domain.adapter.ImageMapper;
 import br.com.example.deliveryservice.domain.internal.Image;
 import br.com.example.deliveryservice.domain.internal.Product;
 import br.com.example.deliveryservice.domain.internal.dto.FileUploadResult;

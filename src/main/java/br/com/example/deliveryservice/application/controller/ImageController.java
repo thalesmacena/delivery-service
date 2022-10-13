@@ -2,7 +2,6 @@ package br.com.example.deliveryservice.application.controller;
 
 
 import br.com.example.deliveryservice.domain.internal.Image;
-import br.com.example.deliveryservice.domain.internal.dto.DeleteImagePayload;
 import br.com.example.deliveryservice.domain.services.ProductImageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
