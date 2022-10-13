@@ -17,6 +17,7 @@
 - [📑 About](#-about)
   - [🏗 Architeture](#-architeture)
   - [🏛 Diagram](#-diagram)
+    - [State Machine](#state-machine)
 - [💻 Technologies](#-technologies)
 - [🔥 Running the application](#-running-the-application)
 - [🕵 API DOC](#-api-doc)
@@ -31,6 +32,9 @@ This is a small example of how to create a service Rest API using Springboot. Th
 
 ### 🏛 Diagram
 ![Diagram](.github/schema.svg)
+
+#### State Machine
+![State Machine](.github/state.svg)
 
 ## 💻 Technologies
 
@@ -80,15 +84,6 @@ cd delivery-service
 # to start docker container
 docker compose up
 
-# Set AWS Credentials
-aws configure
-
-AWS Access Key ID [None]: DELIVERY
-AWS Secret Access Key [None]: DELIVERY
-Default region name [us-east-1]: us-east-1
-Default output format [json]: json
-```
-
 ## 🕵 API DOC
 to access the api documentation just access the following [url](http://localhost:8080/delivery-service/swagger-ui.html) after run the application.
 
@@ -102,15 +97,15 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Data modelling
 - [x] Auth filter and Spring security configuration
 - [x] Login Route
-- [ ] CRUDs
+- [x] CRUDs
 - [x] OAS (OpenAPI Specification)
 - [x] Image upload with s3
-- [ ] Redis lock and cache
 - [x] Exception Handling
-- [ ] Async Ordering
-- [ ] Logs
+- [x] Message Mapping
+- [x] Async Ordering
+- [x] Redis lock and cache
 - [x] Queue processing
 - [ ] Events mapping
 - [ ] Events stream
-- [x] Message Mapping
+- [ ] Logs
 - [ ] Dynamo/mongoDB Integration for events mapping
