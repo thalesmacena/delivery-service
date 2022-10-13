@@ -8,14 +8,12 @@ import br.com.example.deliveryservice.domain.services.MessageContextService;
 import br.com.example.deliveryservice.infra.exception.external.AuthenticationServiceException;
 import br.com.example.deliveryservice.infra.exception.external.UnauthenticatedException;
 import br.com.example.deliveryservice.infra.exception.external.UnauthorizedException;
-import br.com.example.deliveryservice.infra.exception.internal.ImageNotFoundException;
-import br.com.example.deliveryservice.infra.exception.internal.ImagesAlreadyUploadedException;
-import br.com.example.deliveryservice.infra.exception.internal.IncorrectFileContentTypeException;
-import br.com.example.deliveryservice.infra.exception.internal.ProductNotFoundException;
+import br.com.example.deliveryservice.infra.exception.internal.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.secure.spi.IntegrationException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -35,6 +33,36 @@ public class ErrorHandler {
     public ResponseEntity<ErrorMessage> handleProductNotFoundException(Exception e) {
         log.error(messageContextService.getMessage("product-not-found-exception"), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("product-not-found-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorMessage> handleOrderNotFoundException(Exception e) {
+        log.error(messageContextService.getMessage("order-not-found-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("order-not-found-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(OrderKeyAlreadyInUseException.class)
+    public ResponseEntity<ErrorMessage> handleOrderKeyAlreadyInUseException(Exception e) {
+        log.error(messageContextService.getMessage("order-key-already-used-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("order-key-already-used-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(OrderInProcessException.class)
+    public ResponseEntity<ErrorMessage> handleOrderInProcessException(Exception e) {
+        log.error(messageContextService.getMessage("order-in-process-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("order-in-process-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(InvalidOrderStatusToUpdateFieldException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidOrderStatusAccessException(Exception e) {
+        log.error(messageContextService.getMessage("invalid-order-status-to-update-field-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("invalid-order-status-to-update-field-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(InvalidTargetOrderStatusException.class)
+    public ResponseEntity<ErrorMessage> handleInvalidTargetOrderStatusException(Exception e) {
+        log.error(messageContextService.getMessage("invalid-target-order-status-exception"), e);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("invalid-target-order-status-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
     }
 
     @ExceptionHandler(IncorrectFileContentTypeException.class)
@@ -73,7 +101,6 @@ public class ErrorHandler {
         log.error(messageContextService.getMessage("authentication-service-exception"), e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(buildResponseMessage(messageContextService.getMessage("authentication-service-exception.message", e.getMessage()), ErrorType.INTERNAL_SERVER_ERROR));
     }
-
 
     @ExceptionHandler(IntegrationException.class)
     public ResponseEntity<ErrorMessage> handleIntegrationException(Exception e) {
