@@ -14,10 +14,8 @@ echo "           |   |_________________________________________|    |"
 echo "           |                                                  |"
 echo "            \_________________________________________________/"
 echo "                   \___________________________________/"
-
 echo " "
 echo " "
-
 echo "########### Creating SQS ###########"
 echo "Creating delivery-service-order-queue"
 awslocal sqs create-queue --queue-name=delivery-service-order-queue
