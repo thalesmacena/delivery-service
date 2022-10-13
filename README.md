@@ -83,6 +83,7 @@ cd delivery-service
 
 # to start docker container
 docker compose up
+```
 
 ## 🕵 API DOC
 to access the api documentation just access the following [url](http://localhost:8080/delivery-service/swagger-ui.html) after run the application.
