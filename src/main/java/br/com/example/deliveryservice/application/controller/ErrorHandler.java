@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.secure.spi.IntegrationException;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -70,7 +69,6 @@ public class ErrorHandler {
         log.error(messageContextService.getMessage("image-incorrect-content-exception"), e);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildResponseMessage(messageContextService.getMessage("image-incorrect-content-exception.message", e.getMessage()), ErrorType.BAD_REQUEST));
     }
-
 
     @ExceptionHandler(ImageNotFoundException.class)
     public ResponseEntity<ErrorMessage> handleImageNotFoundException(Exception e) {

@@ -43,6 +43,7 @@ public class OrderPayload implements Serializable {
     private String username;
 
     @NotEmpty
+    @Builder.Default
     private List<OrderProductPayload> products = new ArrayList<>();
 
     @NotEmpty
