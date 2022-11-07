@@ -5,19 +5,10 @@ import static java.util.Objects.isNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-import javax.persistence.Column;
+import javax.persistence.*;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cache;
 
 @Data
 @Entity
@@ -59,8 +51,9 @@ public class Product implements Serializable {
 
     private BigDecimal productValue;
 
-    @OneToMany(mappedBy = "product")
-    private List<Image> images;
+    @Builder.Default
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<Image> images = new ArrayList<>(0);
 
     @Column(updatable = false)
     @JsonIgnore

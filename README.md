@@ -106,8 +106,8 @@ to access the api documentation just access the following [url](http://localhost
 - [x] Async Ordering
 - [x] Redis lock and cache
 - [x] Queue processing
-- [ ] Events mapping
-- [ ] Events stream
+- [x] Events mapping
+- [x] Events stream
 - [ ] Logs
 - [ ] Dynamo/mongoDB Integration for events mapping
 - [ ] Email sender
