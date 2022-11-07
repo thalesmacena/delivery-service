@@ -20,7 +20,7 @@ public class OrderProduct implements Serializable {
     @JsonIgnore
     private Order order;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.DETACH)
     private Product product;
 
     private Long quantity;

@@ -85,7 +85,7 @@ amazon:
         config: ${DELIVERY_SERVICE_PRODUCT_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=30}
       delivery-service-delete-image-queue:
         url: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_URL:aws2-sqs://delivery-service-delete-image-queue}
-        config: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=900}
+        config: ${DELIVERY_SERVICE_DELETE_IMAGE_QUEUE_CONFIG:?amazonSQSClient=#sqsClient&concurrentConsumers=1&maxMessagesPerPoll=10&receiveMessageWaitTimeSeconds=20&DefaultVisibilityTimeout=30}
   
   s3:
     proxy-host: ${S3_HOST:localhost}
@@ -102,6 +102,10 @@ amazon:
     proxy-protocol: ${KINESIS_PROTOCOL:HTTP}
     streams:
       delivery-service-product-event-stream:
+        batch-size: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_BATCH_SIZE:100}
+        producer-cron: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_CRON:0 0/5 * * * ?}
+        producer-zone: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_CRON_ZONE:America/Sao_Paulo}
+        producer-enabled: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_CRON_ENABLED:true}
         url: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_URL:aws2-kinesis://delivery-service-product-event-stream}
         config: ${DELIVERY_SERVICE_PRODUCT_EVENT_STREAM_CONFIG:?amazonKinesisClient=#kinesisClient}
         name: ${DELIVERY_SERVICE_PRODUCT_EVENT_NAME:delivery-service-product-event-stream}

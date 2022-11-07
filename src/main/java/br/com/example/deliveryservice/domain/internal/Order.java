@@ -51,6 +51,7 @@ public class Order implements Serializable {
 
     private LocalDateTime endDate;
 
+    @Builder.Default
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderProduct> products = new ArrayList<>(0);
 

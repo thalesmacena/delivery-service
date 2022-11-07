@@ -8,6 +8,7 @@ import br.com.example.deliveryservice.domain.internal.dto.OrderPayload;
 import br.com.example.deliveryservice.domain.internal.dto.OrderProductDTO;
 import br.com.example.deliveryservice.domain.internal.dto.OrderProductPayload;
 import br.com.example.deliveryservice.domain.services.CacheLockService;
+import br.com.example.deliveryservice.domain.services.EventService;
 import br.com.example.deliveryservice.domain.services.OrderService;
 import br.com.example.deliveryservice.domain.services.ProductService;
 import br.com.example.deliveryservice.domain.services.state.order.OrderStateFactory;
@@ -22,6 +23,7 @@ import br.com.example.deliveryservice.infra.queue.OrderProductQueueComponent;
 import br.com.example.deliveryservice.infra.repository.OrderRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,7 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
@@ -42,6 +45,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderStrategyFactory orderStrategyFactory;
 
     private final OrderStateFactory orderStateFactory;
+
+    private final EventService eventService;
 
     private final CacheLockService cacheLockService;
 
@@ -114,9 +119,11 @@ public class OrderServiceImpl implements OrderService {
         OrderStrategy strategy = orderStrategyFactory.findOrderPriorityStrategy(payload.getOrderPriority());
         Order order = strategy.handleOrder(payload, orderProductList);
 
-        orderRepository.save(order);
+        saveOrder(order);
 
         cacheLockService.unlock(payload.getOrderKey());
+
+        log.info("process finished");
     }
 
     private List<OrderProductDTO> getOrderProductList(List<OrderProductPayload> products) {
@@ -125,6 +132,14 @@ public class OrderServiceImpl implements OrderService {
 
             return new OrderProductDTO(enrichedProduct, product.getQuantity());
         }).toList();
+    }
+
+    private Order saveOrder(Order order) {
+        Order savedOrder = orderRepository.save(order);
+
+        eventService.saveOrderEventToSend(savedOrder);
+
+        return savedOrder;
     }
 
     @Override
@@ -143,6 +158,6 @@ public class OrderServiceImpl implements OrderService {
             stateService.setAddress(patchFields.getAddress());
         }
 
-        return orderRepository.save(stateService.getOrder());
+        return saveOrder(stateService.getOrder());
     }
 }
